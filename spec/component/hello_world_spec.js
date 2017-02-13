@@ -1,18 +1,13 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 import HelloWorld from '../../src/component/hello_world'
 
-const shallowRenderer = TestUtils.createRenderer()
-
 describe('HelloWorld', function() {
-  var elem
- 
-  beforeEach(function() {
-    elem = shallowRenderer.render(<HelloWorld/>)
-  })
-  
+  const renderer = TestUtils.createRenderer()
+
   it("renders a div that says hello world", function() {
-    expect(elem.type).toMatch('div')  
+    renderer.render(<HelloWorld />)
+    const result = renderer.getRenderOutput()
+    expect(result.type).toMatch('div')
   })
 })
