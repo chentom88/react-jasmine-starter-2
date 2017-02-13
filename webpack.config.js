@@ -1,11 +1,11 @@
-import path from 'path'
-import webpack from 'webpack'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
+const path = require('path')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const prod = process.argv.indexOf('-p') !== -1
 
-export default {
-  entry: './tulip.js',
+module.exports = {
+  entry: './src/tulip.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'tulip-bundle.js'
@@ -14,23 +14,23 @@ export default {
     rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
       {
         test: /\.s?css$/,
-        loader: ExtractTextPlugin.extract({
+        use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          loader: 'css-loader!sass-loader'
+          use: 'css-loader!sass-loader'
         })
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        loader: 'file-loader!image-webpack-loader'
+        use: 'file-loader!image-webpack-loader'
       },
       {
         test: /\.(eot|ttf|woff)$/,
-        loader: 'url-loader'
+        use: 'url-loader'
       }
     ]
   },
