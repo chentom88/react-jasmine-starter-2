@@ -1,14 +1,14 @@
 const path = require('path')
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const extractTextPlugin = require('extract-text-webpack-plugin')
 
 const prod = process.argv.indexOf('-p') !== -1
 
 module.exports = {
-  entry: './src/tulip.js',
+  entry: './src/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'tulip-bundle.js'
+    filename: 'app_bundle.js'
   },
   module: {
     rules: [
@@ -19,7 +19,7 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        use: ExtractTextPlugin.extract({
+        use: extractTextPlugin.extract({
           fallback: 'style-loader',
           use: 'css-loader!sass-loader'
         })
@@ -37,10 +37,10 @@ module.exports = {
   plugins: [
 		new webpack.DefinePlugin({
         'process.env': {
-            'NODE_ENV': "'development'"
+            'NODE_ENV': prod ? "'production'" : "'development'"
         }
     }),
-    new ExtractTextPlugin('tulip.css'),
+    new extractTextPlugin('app.css'),
   ],
   devtool: prod ? false : 'inline-source-map',
   target: 'node'

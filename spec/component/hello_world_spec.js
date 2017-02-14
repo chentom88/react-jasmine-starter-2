@@ -7,7 +7,8 @@ describe('HelloWorld', function() {
 
   it("renders a div that says hello world", function() {
     renderer.render(<HelloWorld />)
-    const result = renderer.getRenderOutput()
-    expect(result.type).toMatch('div')
+    const component = renderer.getRenderOutput()
+    expect(component.type).toMatch('div')
+    expect(component.props.children).toMatch('Hello World')
   })
 })
